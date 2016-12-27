@@ -138,6 +138,25 @@ app.put('/book/:id',function(req,res){
 });
 
 
+/*
+* Finding one book and deleting  the content 
+*/
+
+app.delete('/book/:id', function(req,res){
+	Book.findOneAndRemove({
+		_id:req.params.id
+	},function(err,book){
+		if (err) {
+			console.log('Could not delete the Book Please try again');
+		}else{
+			console.log(book);
+			res.send('Successfully deleted');
+		}
+	});
+});
+
+
+
 // Now lets write node query for fetching one book information
 
 app.listen(port, function(){
