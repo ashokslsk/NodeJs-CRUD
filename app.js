@@ -101,8 +101,41 @@ Once after created we can show the response as
   "name": "Successfully created",
   "id": "586244a9027e7d80940b7c5c"
 }
-
 */
+
+
+app.post('/book2', function(req,res){
+	Book.create(req.body, function(err, book){
+		if(err){
+			res.send('Error saving book');
+		}else {
+			console.log(book);
+				res.send({name:"Successfully created",id:book._id});
+			
+		}
+	});
+});
+
+
+
+/*
+* Finding one book and updating the content 
+*/
+
+app.put('/book/:id',function(req,res){
+	Book.findOneAndUpdate({
+		_id:req.params.id
+	},{$set: {title:req.body.title}},
+	  {upsert:true},
+	   function(err,newBook){
+	   	if(err){
+	   		console.log('Error occured while updating the data ')
+	   	}else{
+	   		console.log(newBook);
+	   		res.send(newBook);
+	   	}
+	   })
+});
 
 
 // Now lets write node query for fetching one book information
