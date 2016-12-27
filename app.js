@@ -8,10 +8,10 @@ var port = 8080;
 //Variable for database
 var db = 'mongodb://localhost/bookstore';
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
 	extended: true
-});
+}));
 
 mongoose.connect(db);
 
@@ -68,10 +68,41 @@ app.get('/books/getbook/:id', function(req, res){
 
 /*
 * Post method for updating new data to mongoDB
+Once after created we can show the response as 
+---------------------------------------
+{
+  "name": "Successfully created",
+  "id": "586244a9027e7d80940b7c5c"
+}
+
 */
+app.post('/book', function(req,res){
+	var newBook = new Book();
+	newBook.title = req.body.title;
+	newBook.author = req.body.author;
+	newBook.category = req.body.category;
+
+	newBook.save(function(err,book){
+		if(err){
+			console.log("Something is wrong please check or try again later");
+		}else{
+			console.log(book);
+			res.send({name:"Successfully created",id:book._id});
+		}
+	});
+});
 
 
+/*
+* Post method for updating new data to mongoDB using mongoose create() Method
+Once after created we can show the response as 
+---------------------------------------
+{
+  "name": "Successfully created",
+  "id": "586244a9027e7d80940b7c5c"
+}
 
+*/
 
 
 // Now lets write node query for fetching one book information
