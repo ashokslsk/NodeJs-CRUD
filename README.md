@@ -44,6 +44,10 @@ File Name : package.json
 
 ```
 
+```
+Command : npm install --save express mongoose body-parser
+```
+
 -------------------------------- 
 ExpressJs and mongooseJs
 --------------------------------
